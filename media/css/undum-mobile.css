@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-size: 18.5px;
+    font-size: 32px; /* 18.5em; */
     line-height: 1.5em;
     -webkit-text-size-adjust: none;
 }
@@ -47,10 +47,10 @@ body {
 /* Main content */
 #content_wrapper {
     width: auto;
-    padding: 2.0em;
+    padding: 0.25em;
 }
 #content {
-    font-size: 16px;
+    font-size: 24px; /*16px;*/
     line-height: 1.5em;
 }
 
@@ -61,7 +61,8 @@ body {
     left: 0;
     right: 0;
     top: 0;
-    background: transparent url("../img/toolbar_bg.jpg") repeat-x top left;
+    /*background: transparent url("../img/toolbar_bg.jpg") repeat-x top left;*/
+    background-color: #444;
     height: 36px;
     padding: 8px;
     overflow: hidden;
@@ -72,10 +73,10 @@ body {
     float: left;
     font-weight: normal;
     font-size: 22px;
-    margin: 8px 0 0 0;
-    padding: 0 10px;
+    /*margin: 8px 0 0 0;
+    padding: 0 10px;*/
     color: #fc6;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    /*text-shadow: 0 -1px 0 rgba(0,0,0,0.4);*/
 }
 #toolbar .nav {
     float: right;
@@ -90,9 +91,9 @@ body {
     text-decoration: none;\
     text-shadow: 0 1px 0 rgba(0,0,0,0.4);
     -webkit-border-radius: 6px;
-    background-image: -webkit-gradient(linear, left top, left bottom,
+    /*background-image: -webkit-gradient(linear, left top, left bottom,
                                        from(#C00), color-stop(0.45, #a00),
-                                       color-stop(0.55, #900), to(#900));
+                                       color-stop(0.55, #900), to(#900));*/
     border: 2px solid #600;
 }
 #menu {
@@ -102,7 +103,8 @@ body {
     left: 0;
     right: 0;
     font-size: 16px;
-    background-image: url("../img/tools_bg.jpg");
+    /*background-image: url("../img/tools_bg.jpg");*/
+    background-color: #999;
     z-index: 200;
     list-style-type: none;
     padding: 10px 0 0 0;
