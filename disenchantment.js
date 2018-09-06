@@ -1,10 +1,15 @@
+function MarkedSituation(content, opts) {
+  undum.SimpleSituation.call(this, marked(content), opts);
+}
+MarkedSituation.inherits(undum.SimpleSituation);
+
 undum.game.id = "e0b6ad04-e0a6-4be6-80ff-f5ea391809d3";
 undum.game.version = "1.0";
 
 undum.game.start = "start";
 
 undum.game.situations = {
-  start: new undum.SimpleSituation(marked(`
+  start: new MarkedSituation(`
 # The Cabin
     
 The front of the small cabin is entirely 
@@ -20,7 +25,19 @@ Scratched windows offer a view of the
 surrounding bay, and there is a door 
 south to the deck. A sign taped to one 
 wall announces the menu of tours offered 
-by the Yakutat Charter Boat Company.`))
+by the Yakutat Charter Boat Company.`,
+    {
+      choices: '#the-cabin'
+    }),
+  radios: new MarkedSituation(`
+
+With any luck you will not need to radio
+for help, but it is reassuring that 
+these things are here.`,
+    {
+      tags: ['the-cabin'],
+      optionText: 'Examine the radios'
+    })
 };
 
 
