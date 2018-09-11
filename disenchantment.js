@@ -25,7 +25,7 @@ pni.simple(`the-cabin-choices`, '',
   maxChoices: 5
 });
   
-pni.situation('examine-the-captain',
+pni.delayed('examine-the-captain',
 {
   optionText: 'Examine the captain',
   tags: 'the-cabin',
@@ -58,7 +58,7 @@ pni.situation('ask-captain-for-key',
   }
 });
 
-pni.situation('examine-ball-cap',
+pni.delayed('examine-ball-cap',
 {
   optionText: 'Examine the ball cap',
   tags: 'the-cabin',
@@ -72,7 +72,7 @@ pni.situation('examine-ball-cap',
   }
 });
 
-pni.situation('examine-radios',
+pni.delayed('examine-radios',
 {
   optionText: 'Examine the radios',
   tags: 'the-cabin',
@@ -83,7 +83,7 @@ pni.situation('examine-radios',
   }
 });
 
-pni.situation('examine-instruments', 
+pni.delayed('examine-instruments', 
 {
   optionText: 'Examine the instruments',
   tags: 'the-cabin',
@@ -94,7 +94,7 @@ pni.situation('examine-instruments',
   }
 });
 
-pni.situation('examine-radar-screen',
+pni.delayed('examine-radar-screen',
 {
   optionText: 'Examine the radar',
   tags: 'the-cabin',
@@ -105,35 +105,3 @@ pni.situation('examine-radar-screen',
   }
 });
 
-/*
-pni.room('the-cabin',
-`# The Cabin
-    
-The front of the small cabin is entirely occupied with navigational instruments, a radar display, and radios for calling back to shore. Along each side runs a bench with faded blue vinyl cushions, which can be lifted to reveal the storage space underneath. A glass case against the wall contains several fishing rods.
-
-Scratched windows offer a view of the surrounding bay, and there is a door south to the deck. A sign taped to one wall announces the menu of tours offered by the Yakutat Charter Boat Company.
-
-The captain sits at the wheel, steering the boat and occasionally checking the radar readout.`,
-[
-  pni.thing('radios', {
-    examine: pni.onceAction(
-      'Examine the radios',
-`You examine the radios. With any luck you will not need to radio for help, but it is reassuring that these things are here.`)    
-  }),
-  pni.thing('instruments', {
-    examine: pni.onceAction(
-      'Examine the instruments',
-`You take a closer look at the navigational instruments, but then decide that knowing what they do is the Captain's job.`)
-  }),
-  pni.person('the-captain', {
-    examine: pni.action(
-      'Examine the captain', 
-`The captain is wearing a baseball cap and carrying a silver key.`),
-    'ask-for-key-from': pni.action(
-      'Ask the captain for the key',
-`"Captain, can I have that key?" you ask.
-
-"Sure, you can -- well, get me a drink first, would you?"`)
-  })
-]);
-*/
