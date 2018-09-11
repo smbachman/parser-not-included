@@ -168,6 +168,7 @@
                 (opts.frequency !== undefined) ? opts.frequency : 1;
             this._displayOrder =
                 (opts.displayOrder !== undefined) ? opts.displayOrder : 1;
+            this._optionLink = opts.optionLink;
 
             // Tag are not stored with an underscore, because they are
             // accessed directy. They should not be context sensitive
@@ -235,6 +236,15 @@
             return this._optionText(character, system, situation);
         } else {
             return this._optionText;
+        }
+    };
+    /* Returns the link that should be used to display this situation
+     * in an automatically generated list of choices. */
+    Situation.prototype.optionLink = function(character, system, situation) {
+        if ($.isFunction(this._optionLink)) {
+            return this._optionLink(character, system, situation);
+        } else {
+            return this._optionLink;
         }
     };
     /* Returns the priority, frequency and displayOrder for this situation,
@@ -698,11 +708,12 @@
 
             var optionText = situation.optionText(character, this,
                                                   currentSituation);
+            var optionLink = situation.optionLink(character, this, currentSituation);
             if (!optionText) optionText = "choice".l({number:i+1});
             var $option = $("<li>");
             var $a;
             if (situation.canChoose(character, this, currentSituation)) {
-                $a = $("<a>").attr({href: situationId});
+                $a = $("<a>").attr({href: optionLink || situationId});
             } else {
                 $a = $("<span>");
             }
@@ -772,6 +783,8 @@
     {
         var datum;
         var i;
+        
+        //console.log(minChoices, maxChoices);
 
         // First check if we have a single string for the id or tag.
         if ($.type(listOfOrOneIdsOrTags) == 'string') {
@@ -812,6 +825,8 @@
         viewableSituationData.sort(function(a, b) {
             return b.priority - a.priority;
         });
+        
+        //console.log(viewableSituationData);
 
         var committed = [];
         var candidatesAtLastPriority = [];
@@ -832,16 +847,20 @@
             }
             candidatesAtLastPriority.push(datum);
         }
+        
+        //console.log(committed);
+        //console.log(candidatesAtLastPriority);
 
         // So the values in committed we're committed to, because without
         // them we wouldn't hit our minimum. But those in
         // candidatesAtLastPriority might take us over our maximum, so
         // figure out how many we should choose.
         var totalChoices = committed.length + candidatesAtLastPriority.length;
+        //console.log(totalChoices);
         if (maxChoices === undefined || maxChoices >= totalChoices) {
             // We can use all the choices.
             committed.push.apply(committed, candidatesAtLastPriority);
-        } else if (maxChoices >= committed.length) {
+        } else if (maxChoices == committed.length) {
             // We can only use the commited ones.
             // NO-OP
         } else {
