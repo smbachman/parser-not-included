@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-size: 32px; /* 18.5em; */
-    line-height: 1.5em;
+    /*line-height: 1.5em;*/
     -webkit-text-size-adjust: none;
 }
 
@@ -22,7 +22,7 @@ body {
 #title .label  {
     font-size: 0.65em;
     max-width: 25em;
-    padding: 2.0em;
+    /*padding: 2.0em;*/
 }
 
 /* Side panels */
@@ -51,7 +51,7 @@ body {
 }
 #content {
     font-size: 24px; /*16px;*/
-    line-height: 1.5em;
+    /*line-height: 1.5em;*/
 }
 
 /* Toolbar and menu */

@@ -3,53 +3,137 @@ undum.game.version = "1.0";
 
 undum.game.start = "the-cabin";
 
-pni.situation(
-  'the-cabin',
-  {
-    enter: (c, system, from) => {
-      system.write(
-`<h1>The Cabin</h1>
+pni.situation('the-cabin',
+{
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`# The Cabin
     
-<p>The front of the small cabin is entirely occupied with navigational instruments, a radar display, and radios for calling back to shore. Along each side runs a bench with faded blue vinyl cushions, which can be lifted to reveal the storage space underneath. A glass case against the wall contains severalfishing rods.</p>
+The front of the small cabin is entirely occupied with navigational instruments, a radar display, and radios for calling back to shore. Along each side runs a bench with faded blue vinyl cushions, which can be lifted to reveal the storage space underneath. A glass case against the wall contains several fishing rods.
 
-<p>Scratched windows offer a view of the surrounding bay, and there is a door south to the deck. A sign taped to one wall announces the menu of tours offered by the Yakutat Charter Boat Company.</p>`);
-      system.doLink('the-cabin-choices');
-    }
-  });
+Scratched windows offer a view of the surrounding bay, and there is a door south to the deck. A sign taped to one wall announces the menu of tours offered by the Yakutat Charter Boat Company.
+
+The captain sits at the wheel, steering the boat and occasionally checking the radar readout.`));
+    sys.doLink('the-cabin-choices');
+  }
+});
+
+pni.simple(`the-cabin-choices`, '',
+{ 
+  choices: ['#the-cabin'],
+  minChoices: 3,
+  maxChoices: 5
+});
   
-pni.simple(
-  'the-cabin-choices', ``, 
-  {
-    choices: ['#the-cabin']
-  });
-  
+pni.situation('examine-the-captain',
+{
+  optionText: 'Examine the captain',
+  tags: 'the-cabin',
+  frequency: 20,
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`The captain is wearing a baseball cap and carrying a silver key.`));
+    sys.doLink('the-cabin-choices');
+    ch.sandbox.sawKey = true;
+    ch.sandbox.sawCap = true;
+  }
+});
+
+pni.situation('ask-captain-for-key',
+{
+  optionText: 
+    'Ask the captain for the key',
+  tags: 'the-cabin',
+  frequency: 50,
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`"Captain, can I have that key?" you ask.
+
+"Sure, you can -- well, get me a drink first, would you?"`));
+    sys.doLink('the-cabin-choices');
+    ch.sandbox.sawKey = true;
+  },
+  canView: (ch, sys, sit) => {
+    return ch.sandbox.sawKey;
+  }
+});
+
+pni.situation('examine-ball-cap',
+{
+  optionText: 'Examine the ball cap',
+  tags: 'the-cabin',
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`You examine the ball cap. It says, THE WORST DAY FISHING IS BETTER THAN THE BEST DAY WORKING.`));
+    sys.doLink('the-cabin-choices');
+  },
+  canView: (ch, sys, sit) => {
+    return ch.sandbox.sawCap;
+  }
+});
+
 pni.situation('examine-radios',
-  {
-    enter: (character, system, from) => {
-      system.write(
-`<p>With any luck you 
-will not need to radio
-for help, but it is reassuring that 
-these things are here.</p>`);
-      character.sandbox.examinedRadios = true;
-      system.doLink('the-cabin-choices');
-    },
-    canView: (character, sys, sit) => {
-      return !character.sandbox.examinedRadios;
-    },
-    optionText: 'Examine the radios',
-    tags: 'the-cabin'
-  });
+{
+  optionText: 'Examine the radios',
+  tags: 'the-cabin',
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`You examine the radios. With any luck you will not need to radio for help, but it is reassuring that these things are here.`));
+    sys.doLink('the-cabin-choices');
+  }
+});
 
-pni.situation('lift-compartment',
-  {
-    enter: (character, system, from) => {
-      system.write(`<p>You lift one of the cushions and discover some nets and a coke in the storage compartment.</p>`);
-      character.sandbox.liftedCushions = true;
-      system.doLink('the-cabin-choices');
-    },
-    optionText: 'Lift the cushions',
-    tags: 'the-cabin'
-  });
+pni.situation('examine-instruments', 
+{
+  optionText: 'Examine the instruments',
+  tags: 'the-cabin',
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`You take a closer look at the navigational instruments; knowing what they do is the captain's job.`));
+    sys.doLink('the-cabin-choices');
+  }
+});
 
+pni.situation('examine-radar-screen',
+{
+  optionText: 'Examine the radar',
+  tags: 'the-cabin',
+  enter: (ch, sys, from) => {
+    sys.write(marked(
+`You look at the radar. Phantom lights move across the screen.`));
+    sys.doLink('the-cabin-choices');
+  }
+});
 
+/*
+pni.room('the-cabin',
+`# The Cabin
+    
+The front of the small cabin is entirely occupied with navigational instruments, a radar display, and radios for calling back to shore. Along each side runs a bench with faded blue vinyl cushions, which can be lifted to reveal the storage space underneath. A glass case against the wall contains several fishing rods.
+
+Scratched windows offer a view of the surrounding bay, and there is a door south to the deck. A sign taped to one wall announces the menu of tours offered by the Yakutat Charter Boat Company.
+
+The captain sits at the wheel, steering the boat and occasionally checking the radar readout.`,
+[
+  pni.thing('radios', {
+    examine: pni.onceAction(
+      'Examine the radios',
+`You examine the radios. With any luck you will not need to radio for help, but it is reassuring that these things are here.`)    
+  }),
+  pni.thing('instruments', {
+    examine: pni.onceAction(
+      'Examine the instruments',
+`You take a closer look at the navigational instruments, but then decide that knowing what they do is the Captain's job.`)
+  }),
+  pni.person('the-captain', {
+    examine: pni.action(
+      'Examine the captain', 
+`The captain is wearing a baseball cap and carrying a silver key.`),
+    'ask-for-key-from': pni.action(
+      'Ask the captain for the key',
+`"Captain, can I have that key?" you ask.
+
+"Sure, you can -- well, get me a drink first, would you?"`)
+  })
+]);
+*/
