@@ -1516,7 +1516,7 @@
     var endOutputTransaction = function() {
         var scrollPoint = scrollStack.pop();
         if (scrollStack.length === 0 && scrollPoint !== null) {
-            if (interactive && !mobile) {
+            if (interactive /* && !mobile */) {
                 $("body, html").animate({scrollTop: scrollPoint}, 500);
             }
             scrollPoint = null;
@@ -1643,7 +1643,7 @@
             }));
             if (interactive) {
                 if (mobile) {
-                  contentToHide.fadeOut(300);
+                  contentToHide.fadeOut(2000);
                 } else {
                   contentToHide.
                     animate({opacity: 0}, 1500).

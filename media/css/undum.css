@@ -6,7 +6,7 @@ body {
     font-family: Mukta, Times, "Times New Roman", serif;
     font-size: 18px;
     /*line-height: 1.6em;*/
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
     overflow-y: scroll;
     color: #444;
 }
@@ -14,7 +14,7 @@ body {
 /* Basic structure */
 #page {
     margin: 0 auto;
-    position: relative;
+    /*position: relative;*/
 }
 #mid_panel {
     margin: 0 10.5em;
@@ -99,11 +99,11 @@ body {
 
 /* Main content */
 #content_wrapper {
-    /*max-width: 28em;
-    position: relative;*/
+    max-width: 28em;
+    /*position: relative;*/
     /*background: #e6e6c6 url("../img/text_bg.jpg") repeat left top;*/
-    /*margin: 0.6em auto 1.1em auto;
-    padding: 2.8em;*/
+    margin: 0.6em auto 1.1em auto;
+    padding: 2.8em;
     display: none; /* Shown by Javascript */
     overflow: auto;
 }
@@ -225,7 +225,7 @@ img.float_left {
 .tools {
     padding: 0.6em;
     width: 8.9em;
-    background: #cec3ae url("../img/tools_bg.jpg") repeat left top;
+    /*background: #cec3ae url("../img/tools_bg.jpg") repeat left top;*/
     position: absolute;
 }
 .tools p {
