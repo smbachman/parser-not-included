@@ -1643,7 +1643,7 @@
             }));
             if (interactive) {
                 if (mobile) {
-                  contentToHide.fadeOut(2000);
+                  contentToHide.fadeOut(300);
                 } else {
                   contentToHide.
                     animate({opacity: 0}, 1500).
