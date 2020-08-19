@@ -319,8 +319,8 @@
             } else {
                 system.writeHeading(this.heading);
             }
-        }
-        if (this._enter) this._enter(character, system, from);
+        }        
+        if (this._enter) this._enter(character, system, from);        
         if (this.content) {
             if ($.isFunction(this.content)) {
                 system.write(this.content());
@@ -333,7 +333,7 @@
                                                        this.minChoices,
                                                        this.maxChoices);
             system.writeChoices(choices);
-        }
+        }        
     };
     SimpleSituation.prototype.act = function(character, system, action) {
         var response = this.actions[action];
@@ -700,7 +700,7 @@
         if (listOfIds.length === 0) return;
 
         var currentSituation = getCurrentSituation();
-        var $options = $("<ul>").addClass("options");
+        var $options = $("<ul>").addClass("options").addClass("list-group").addClass("col-sm-6");
         for (var i = 0; i < listOfIds.length; ++i) {
             var situationId = listOfIds[i];
             var situation = game.situations[situationId];
@@ -710,7 +710,7 @@
                                                   currentSituation);
             var optionLink = situation.optionLink(character, this, currentSituation);
             if (!optionText) optionText = "choice".l({number:i+1});
-            var $option = $("<li>");
+            var $option = $("<li>").addClass("list-group-item");
             var $a;
             if (situation.canChoose(character, this, currentSituation)) {
                 $a = $("<a>").attr({href: optionLink || situationId});
@@ -1516,7 +1516,7 @@
     var endOutputTransaction = function() {
         var scrollPoint = scrollStack.pop();
         if (scrollStack.length === 0 && scrollPoint !== null) {
-            if (interactive /* && !mobile */) {
+            if (interactive && !mobile) {
                 $("body, html").animate({scrollTop: scrollPoint}, 500);
             }
             scrollPoint = null;
@@ -1642,15 +1642,20 @@
                 return $(this).attr("href").match(/[?&]transient[=&]?/);
             }));
             if (interactive) {
-                if (mobile) {
-                  contentToHide.fadeOut(2000);
-                } else {
-                  contentToHide.
-                    animate({opacity: 0}, 1500).
-                    slideUp(500, function() {
-                      $(this).remove();
-                    });
-                }
+                contentToHide.
+                     animate({opacity: 0}, 200).
+                     slideUp(300, function() {
+                       $(this).remove();
+                     });
+            //     if (mobile) {
+            //       contentToHide.fadeOut(400);
+            //     } else {
+            //       contentToHide.
+            //         animate({opacity: 0}, 1500).
+            //         slideUp(500, function() {
+            //           $(this).remove();
+            //         });
+            //     }
             } else {
                 contentToHide.remove();
             }
@@ -1901,7 +1906,7 @@
         var resize = function() {
             // Work out if we're mobile or not.
             var wasMobile = mobile;
-            mobile = isMobileDevice();
+            mobile = isMobileDevice();          
 
             if (wasMobile != mobile) {
                 var showing = !$(".click_message").is(":visible");

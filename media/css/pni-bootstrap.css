@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Mukta);
+
+body {
+  /*font-family: Mukta;
+  font-size: 1.3em;*/
+}
+
+#content_wrapper {
+    display: none; /* Shown by Javascript */
+}
+
+hr {
+    border: none;
+    /*background-color: rgba(0,0,0,0.25);
+    margin: -1px 0 -1px -2.8em;
+    width: 1.1em;
+    height: 2px;*/
+}
+
+#content h1 {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+div.quality_group h2 {
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
